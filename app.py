@@ -29,6 +29,7 @@ Example use api by '/api?url=www.google.com'</xmp>"""
 
 @app.route('/runner_type', methods=['GET'])
 def getRunnerType():
+    print(request.args)
     # phishingUrl = request.args['url']
 
     # splitText = splitUrlIntoToken(phishingUrl)
@@ -40,7 +41,7 @@ def getRunnerType():
     # vectorText = tfidVec.transform(df['data'])
 
     # result = loaded_model.predict(vectorText)
-    return true
+    return request.args
 
 if __name__ == "__main__":
     app.run(threaded=True)
