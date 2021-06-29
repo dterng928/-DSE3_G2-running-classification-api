@@ -51,10 +51,11 @@ def getRacingType():
     
     print('recommend racing: ', result)
     
-    res = Response(json.dumps(result))
-    res.headers['response-type'] = 'intent'
-    res.headers['Content-Type'] = 'application/json; charser=utf-8'
-    return res
+    # res = Response(json.dumps(result))
+    # res.headers['response-type'] = 'intent'
+    # res.headers['Content-Type'] = 'application/json; charser=utf-8'
+    # return res
+    return {'raceType':result}
 
 if __name__ == "__main__":
     app.run(threaded=True)
