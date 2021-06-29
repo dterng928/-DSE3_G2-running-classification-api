@@ -1,4 +1,5 @@
-from flask import Flask, request
+from flask import Flask, request, Response
+import json
 import pandas as pd
 import numpy as np
 
@@ -49,7 +50,11 @@ def getRacingType():
     result = recommendRacing(request.args['active']) if 'active' in request.args else 'ไม่มีรายการแนะนำในช่วงนี้'
     
     print('recommend racing: ', result)
-    return {'result': result}
+    
+    res = Response(json.dumps(result))
+    res.headers['response-type'] = 'intent'
+    res.headers['Content-Type'] = 'application/json; charser=utf-8'
+    return res
 
 if __name__ == "__main__":
     app.run(threaded=True)
