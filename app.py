@@ -37,8 +37,9 @@ def recommendRacing(answer):
             '25-35 กิโล': '21km',
             '35 กิโลขึ้นไป': '42km',
         }
-        
-        return switcher.get(answer, 'ไม่มีรายการแนะนำในช่วงนี้')
+        for key, value in switcher.items():
+            if key in answer:
+                return switcher.get(key, 'ไม่มีรายการแนะนำในช่วงนี้')
     # print('not in if')
     return 'ไม่มีรายการแนะนำในช่วงนี้'
 
