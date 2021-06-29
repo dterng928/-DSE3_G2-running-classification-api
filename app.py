@@ -25,23 +25,30 @@ app = Flask(__name__)
 @app.route('/')
 def homePage():
     return """<xmp>To check Runner Type.
-Example use api by '/api?url=www.google.com'</xmp>"""
+Example use api by '/racing_type?active=ไม่เคย'</xmp>"""
 
-@app.route('/runner_type', methods=['GET'])
-def getRunnerType():
+def recommendRacing(answer):
+    # print(answer)
+    if answer :
+        # print('in switcher')
+        switcher = {
+            'ไม่เคย': '10km',
+            'น้อยกว่า 25 กิโล': '10km',
+            '25-35 กิโล': '21km',
+            '35 กิโลขึ้นไป': '42km',
+        }
+        
+        return switcher.get(answer, 'ไม่มีรายการแนะนำในช่วงนี้')
+    # print('not in if')
+    return 'ไม่มีรายการแนะนำในช่วงนี้'
+
+@app.route('/racing_type', methods=['GET'])
+def getRacingType():
     print(request.args)
-    # phishingUrl = request.args['url']
-
-    # splitText = splitUrlIntoToken(phishingUrl)
-    # stemText = textNormByStemType(splitText, snowball)
-
-    # data = ' '.join(stemText)
-    # df = pd.DataFrame([data], columns = ['data'])
-
-    # vectorText = tfidVec.transform(df['data'])
-
-    # result = loaded_model.predict(vectorText)
-    return request.args
+    result = recommendRacing(request.args['active']) if 'active' in request.args else 'ไม่มีรายการแนะนำในช่วงนี้'
+    
+    print('recommend racing: ', result)
+    return {'result': result}
 
 if __name__ == "__main__":
     app.run(threaded=True)
